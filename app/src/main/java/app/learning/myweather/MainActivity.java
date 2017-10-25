@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import app.learning.myweather.adapters.ForecastAdapter;
@@ -75,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
           String code = channelJsonObject.getJSONObject("item").getJSONObject("condition").getString("code");
           String current_conditions_text = channelJsonObject.getJSONObject("item").getJSONObject("condition").getString("text");
 
-          update_current_conditions(temp, code, current_conditions_text);
+          String current_min =  ((JSONObject) channelJsonObject.getJSONObject("item").getJSONArray("forecast").get(0)).getString("low");
+          String current_max =  ((JSONObject) channelJsonObject.getJSONObject("item").getJSONArray("forecast").get(0)).getString("high");
+
+          update_current_conditions(temp, code, current_conditions_text, current_min, current_max);
 
           //----- forecast -----
           JSONArray jsonArrayForecast = channelJsonObject.getJSONObject("item").getJSONArray("forecast");
@@ -104,10 +106,13 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void update_current_conditions(final String temp, final String code, final String current_conditions_text) {
+  private void update_current_conditions(final String temp, final String code, final String current_conditions_text, final String current_min,
+      final String current_max) {
     MainActivity.this.runOnUiThread(new Runnable() {
       @Override public void run() {
         textView_current_temp.setText(String.format(Locale.getDefault(), "%.1f°", getCelsiusFromFahrenheit(Double.valueOf(temp))));
+        textView_min.setText(String.format(Locale.getDefault(), "Min %.0f°", getCelsiusFromFahrenheit(Double.valueOf(current_min))));
+        textView_max.setText(String.format(Locale.getDefault(), "Max %.0f°", getCelsiusFromFahrenheit(Double.valueOf(current_max))));
         textView_current_conditions.setText(current_conditions_text);
         update_current_conditions_image(code);
       }

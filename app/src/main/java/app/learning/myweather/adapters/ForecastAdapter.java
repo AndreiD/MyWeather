@@ -34,10 +34,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForeCa
     try {
       JSONObject jsonObjectForecast = forecastList.getJSONObject(position + 1);
 
-      vh.textView_row_when.setText(jsonObjectForecast.getString("day"));
+      if(position == 0){
+        vh.textView_row_when.setText("Tomorrow");
+      }else {
+        vh.textView_row_when.setText(jsonObjectForecast.getString("day"));
+      }
       vh.textView_row_conditions.setText(jsonObjectForecast.getString("text"));
-      vh.textView_row_min.setText(String.format("Min %s°", jsonObjectForecast.getString("low")));
-      vh.textView_row_max.setText(String.format("Max %s°", jsonObjectForecast.getString("high")));
+      vh.textView_row_min.setText(String.format("%s°", jsonObjectForecast.getString("low")));
+      vh.textView_row_max.setText(String.format("%s°", jsonObjectForecast.getString("high")));
     } catch (JSONException e) {
       e.printStackTrace();
     }

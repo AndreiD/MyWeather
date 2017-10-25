@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background_normal"
+    android:background="@drawable/background2"
     >
 
 
@@ -34,22 +34,24 @@
         android:textSize="25sp"
         />
     <TextView
-        android:id="@+id/textView_min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_location"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView_location"
-        tools:text="Min: 3*"
-        />
-    <TextView
         android:id="@+id/textView_max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView_min"
-        android:layout_below="@+id/textView_min"
+        android:layout_below="@+id/textView_location"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView_current_temp"
+        android:textSize="18sp"
         tools:text="Max: 36*"
+        />
+    <TextView
+        android:id="@+id/textView_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_current_temp"
+        android:layout_alignBottom="@+id/textView_current_temp"
+        android:layout_alignStart="@+id/textView_max"
+        android:textSize="18sp"
+        tools:text="Min: 3*"
         />
     <TextView
         android:id="@+id/textView_current_conditions"
