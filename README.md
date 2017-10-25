@@ -24,7 +24,7 @@ select * from weather.forecast where woeid in (select woeid from geo.places(1) w
 
 - View JSON more nicely: http://jsonviewer.stack.hu/
 
-- More Images Link: https://thenounproject.com/hugugolplex/
+- More Images Link: https://thenounproject.com/hugugolplex/ | https://thenounproject.com/hugugolplex/collection/weather/
 
 
 Weather Codes
@@ -81,5 +81,10 @@ Code	Description
 47	isolated thundershowers
 3200	not available
 ~~~~
+
+
+### Libraries Used
+
+https://square.github.io/okhttp/
 
 #### License Creative Commons
