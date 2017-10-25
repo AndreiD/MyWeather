@@ -5,7 +5,7 @@ Fell free to use it in whatever way you like
 ------------
 
 
-### Downloads & Installs
+### Easy copy-paste links
 
 - Code for this project: https://github.com/AndreiD/MyWeather
 - to download it as zip: https://github.com/AndreiD/MyWeather/archive/master.zip
@@ -14,7 +14,12 @@ Fell free to use it in whatever way you like
 - Android Studio: https://developer.android.com/studio/index.html
 
 - Yahoo Weather API: https://developer.yahoo.com/weather/
-- Example YQL Query: select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Sofia, Bg")
+- Example YQL Query:
+
+~~~~
+select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Sofia, Bg")
+~~~~
+
 - Giving the endpoint of: https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Sofia%2C%20Bg%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys
 
 - View JSON more nicely: http://jsonviewer.stack.hu/
