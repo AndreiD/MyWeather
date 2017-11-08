@@ -1,11 +1,16 @@
 package app.learning.myweather;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.learning.myweather.adapters.ForecastAdapter;
 import java.io.IOException;
 import java.util.Locale;
@@ -25,14 +30,22 @@ public class MainActivity extends AppCompatActivity {
   private TextView textView_max;
   private TextView textView_location;
   private TextView textView_current_conditions;
+  private TextView textView_loading;
   private RecyclerView recyclerview_main;
   private ImageView imageView_current_conditions;
+
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    if(!isInternetAvailable()){
+      Toast.makeText(MainActivity.this,"You need internet in order to run this application",Toast.LENGTH_LONG).show();
+      finish();
+    }
+
     textView_current_temp = findViewById(R.id.textView_current_temp);
+    textView_loading = findViewById(R.id.textView_loading);
     textView_min = findViewById(R.id.textView_min);
     textView_max = findViewById(R.id.textView_max);
     textView_location = findViewById(R.id.textView_location);
@@ -47,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     load_weather_data();
   }
+
 
   private void load_weather_data() {
 
@@ -63,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
       @Override public void onResponse(Call call, Response response) throws IOException {
         try {
+
+
+
           JSONObject jsonObject = new JSONObject(response.body().string());
           JSONObject channelJsonObject = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel");
           String city = channelJsonObject.getJSONObject("location").getString("city");
@@ -110,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
       final String current_max) {
     MainActivity.this.runOnUiThread(new Runnable() {
       @Override public void run() {
+
+        textView_loading.setVisibility(View.GONE);
+
         textView_current_temp.setText(String.format(Locale.getDefault(), "%.1f°", getCelsiusFromFahrenheit(Double.valueOf(temp))));
         textView_min.setText(String.format(Locale.getDefault(), "Min %.0f°", getCelsiusFromFahrenheit(Double.valueOf(current_min))));
         textView_max.setText(String.format(Locale.getDefault(), "Max %.0f°", getCelsiusFromFahrenheit(Double.valueOf(current_max))));
@@ -136,4 +156,11 @@ public class MainActivity extends AppCompatActivity {
   private double getCelsiusFromFahrenheit(double f) {
     return (f - 32) * 5 / 9;
   }
+
+  private boolean isInternetAvailable() {
+    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+  }
+
 }

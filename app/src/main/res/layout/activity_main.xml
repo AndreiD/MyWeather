@@ -71,6 +71,15 @@
         android:tint="@color/white"
         tools:srcCompat="@drawable/ic_unknown"
         />
+    <TextView
+        android:id="@+id/textView_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView_location"
+        android:layout_centerHorizontal="true"
+        android:text="Loading the weather..."
+        android:textSize="16sp"
+        />
   </RelativeLayout>
   <TextView
       android:id="@+id/textView"
